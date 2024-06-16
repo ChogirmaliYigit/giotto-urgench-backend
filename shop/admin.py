@@ -40,7 +40,7 @@ class CategoryAdmin(ModelAdmin):
         "name",
         "parent",
     )
-    fields = list_display
+    fields = list_display + ("image",)
     search_fields = list_display + ("id",)
     list_filter = ("parent",)
     inlines = [
