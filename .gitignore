@@ -8,5 +8,4 @@ fly.toml
 .vscode
 staticfiles/
 media/
-requirements.txt
 database.sqlite
