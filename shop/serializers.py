@@ -7,6 +7,7 @@ from shop.models import Category, Product
 class CategoriesSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         data = super().to_representation(instance)
+        data["image"] = f"{settings.BACKEND_DOMAIN}{instance.image.url}"
         data["parent"] = (
             CategoriesSerializer(instance.parent).data if instance.parent else None
         )
@@ -18,6 +19,7 @@ class CategoriesSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "parent",
+            "image",
         )
 
 
