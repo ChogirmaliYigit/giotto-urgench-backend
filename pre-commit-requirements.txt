@@ -1,0 +1,6 @@
+pre-commit==3.7.1
+autoflake==2.3.1
+black==24.4.2
+pyupgrade==3.16.0
+isort==5.13.2
+yesqa==1.5.0

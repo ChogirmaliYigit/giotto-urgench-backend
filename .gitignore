@@ -1,0 +1,12 @@
+.DS_Store
+.idea/
+*.pyc
+__pycache__
+venv
+.env
+fly.toml
+.vscode
+staticfiles/
+media/
+requirements.txt
+database.sqlite
