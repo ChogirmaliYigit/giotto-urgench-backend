@@ -15,6 +15,11 @@ class CategoryDetailView(generics.RetrieveAPIView):
     queryset = Category.objects.all()
     serializer_class = CategoriesSerializer
 
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context["detail"] = True
+        return context
+
 
 class ProductsListView(generics.ListAPIView):
     queryset = Product.objects.all()
@@ -25,3 +30,8 @@ class ProductsListView(generics.ListAPIView):
 class ProductDetailView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductsSerializer
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context["detail"] = True
+        return context

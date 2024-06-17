@@ -167,6 +167,13 @@ CORS_ALLOW_HEADERS = list(default_headers) + ["*"]
 # Allow cookies to be included in cross-origin requests
 CORS_ALLOW_CREDENTIALS = True
 
+HOSTS_WITH_PROTOCOL = []
+for host in ALLOWED_HOSTS:
+    HOSTS_WITH_PROTOCOL.append(f"http://{host}")
+    HOSTS_WITH_PROTOCOL.append(f"https://{host}")
+
+CSRF_TRUSTED_ORIGINS = HOSTS_WITH_PROTOCOL + env.list("CSRF_TRUSTED_ORIGINS", [])
+
 UNFOLD = {
     "SIDEBAR": {
         "show_search": True,
