@@ -9,7 +9,9 @@ class CategoriesSerializer(serializers.ModelSerializer):
         data = super().to_representation(instance)
         detail = self.context.get("detail", False)
         if detail:
-            data["products"] = ProductsSerializer(instance.products.all()).data
+            data["products"] = ProductsSerializer(
+                instance.products.all(), many=True
+            ).data
         data["image"] = f"{settings.BACKEND_DOMAIN}{instance.image.url}"
         data["parent"] = (
             CategoriesSerializer(instance.parent).data if instance.parent else None
