@@ -12,7 +12,7 @@ class CategoriesListView(generics.ListAPIView):
 
 
 class CategoryDetailView(generics.RetrieveAPIView):
-    queryset = Category.objects.filter(parent__isnull=True)
+    queryset = Category.objects.all()
     serializer_class = CategoriesSerializer
 
     def get_serializer_context(self):
