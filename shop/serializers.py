@@ -8,14 +8,19 @@ class CategoriesSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         data = super().to_representation(instance)
         detail = self.context.get("detail", False)
+        sub_category = self.context.get("sub_category", False)
         if detail:
             data["products"] = ProductsSerializer(
                 instance.products.all(), many=True
             ).data
+            data["sub_categories"] = CategoriesSerializer(
+                instance.sub_categories.all(), many=True, context={"sub_category": True}
+            ).data
         data["image"] = f"{settings.BACKEND_DOMAIN}{instance.image.url}"
-        data["parent"] = (
-            CategoriesSerializer(instance.parent).data if instance.parent else None
-        )
+        if not sub_category:
+            data["parent"] = (
+                CategoriesSerializer(instance.parent).data if instance.parent else None
+            )
         return data
 
     class Meta:
