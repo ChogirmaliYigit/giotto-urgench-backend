@@ -24,8 +24,8 @@ class Category(models.Model):
 
     class Meta:
         db_table = "categories"
-        verbose_name = "Category"
-        verbose_name_plural = "Categories"
+        verbose_name = "Категория"
+        verbose_name_plural = "Категории"
 
 
 class Product(models.Model):
@@ -42,3 +42,5 @@ class Product(models.Model):
 
     class Meta:
         db_table = "products"
+        verbose_name = "Продукт"
+        verbose_name_plural = "Продукты"
