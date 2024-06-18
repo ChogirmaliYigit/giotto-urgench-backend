@@ -6,13 +6,13 @@ from shop.serializers import CategoriesSerializer, ProductsSerializer
 
 
 class CategoriesListView(generics.ListAPIView):
-    queryset = Category.objects.all()
+    queryset = Category.objects.filter(parent__isnull=True)
     serializer_class = CategoriesSerializer
     filterset_class = CategoryFilter
 
 
 class CategoryDetailView(generics.RetrieveAPIView):
-    queryset = Category.objects.all()
+    queryset = Category.objects.filter(parent__isnull=True)
     serializer_class = CategoriesSerializer
 
     def get_serializer_context(self):
