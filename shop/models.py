@@ -1,4 +1,9 @@
+import os
+from io import BytesIO
+
+from django.core.files.base import ContentFile
 from django.db import models
+from PIL import Image
 
 
 class Category(models.Model):
@@ -23,6 +28,18 @@ class Category(models.Model):
             sub_categories.extend(sub_category.get_sub_categories())
         return sub_categories
 
+    def save(self, *args, **kwargs):
+        if self.image:
+            image = Image.open(self.image)
+            webp_io = BytesIO()
+            image.save(webp_io, format="WEBP", quality=80)
+
+            webp_content = ContentFile(webp_io.getvalue())
+            self.image.save(
+                os.path.splitext(self.image.name)[0] + ".webp", webp_content, save=False
+            )
+        return super().save(*args, **kwargs)
+
     class Meta:
         db_table = "categories"
         verbose_name = "Категория"
@@ -40,6 +57,18 @@ class Product(models.Model):
         on_delete=models.CASCADE,
         related_name="products",
     )
+
+    def save(self, *args, **kwargs):
+        if self.image:
+            image = Image.open(self.image)
+            webp_io = BytesIO()
+            image.save(webp_io, format="WEBP", quality=80)
+
+            webp_content = ContentFile(webp_io.getvalue())
+            self.image.save(
+                os.path.splitext(self.image.name)[0] + ".webp", webp_content, save=False
+            )
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
