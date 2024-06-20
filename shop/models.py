@@ -30,14 +30,17 @@ class Category(models.Model):
 
     def save(self, *args, **kwargs):
         if self.image:
-            image = Image.open(self.image)
-            webp_io = BytesIO()
-            image.save(webp_io, format="WEBP", quality=80)
-
-            webp_content = ContentFile(webp_io.getvalue())
-            self.image.save(
-                os.path.splitext(self.image.name)[0] + ".webp", webp_content, save=False
-            )
+            try:
+                image = Image.open(self.image)
+                webp_io = BytesIO()
+                image.save(webp_io, format="WEBP", quality=80)
+    
+                webp_content = ContentFile(webp_io.getvalue())
+                self.image.save(
+                    os.path.splitext(self.image.name)[0] + ".webp", webp_content, save=False
+                )
+            except Exception as exc:
+                print(f"Error while compressing category image: {exc.__class__.__name__}: {exc}")
         return super().save(*args, **kwargs)
 
     class Meta:
@@ -60,14 +63,17 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):
         if self.image:
-            image = Image.open(self.image)
-            webp_io = BytesIO()
-            image.save(webp_io, format="WEBP", quality=80)
-
-            webp_content = ContentFile(webp_io.getvalue())
-            self.image.save(
-                os.path.splitext(self.image.name)[0] + ".webp", webp_content, save=False
-            )
+            try:
+                image = Image.open(self.image)
+                webp_io = BytesIO()
+                image.save(webp_io, format="WEBP", quality=80)
+    
+                webp_content = ContentFile(webp_io.getvalue())
+                self.image.save(
+                    os.path.splitext(self.image.name)[0] + ".webp", webp_content, save=False
+                )
+            except Exception as exc:
+                print(f"Error while compressing product image: {exc.__class__.__name__}: {exc}")
         return super().save(*args, **kwargs)
 
     def __str__(self):
