@@ -9,6 +9,7 @@ class CategoriesListView(generics.ListAPIView):
     queryset = Category.objects.filter(parent__isnull=True)
     serializer_class = CategoriesSerializer
     filterset_class = CategoryFilter
+    ordering = ["name"]
 
 
 class CategoryDetailView(generics.RetrieveAPIView):
@@ -25,6 +26,7 @@ class ProductsListView(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductsSerializer
     filterset_class = ProductFilter
+    ordering = ["name"]
 
 
 class ProductDetailView(generics.RetrieveAPIView):
