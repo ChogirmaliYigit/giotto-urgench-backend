@@ -22,15 +22,13 @@ class CategoriesSerializer(serializers.ModelSerializer):
                 many=True,
             ).data
             data["sub_categories"] = CategoriesSerializer(
-                instance.sub_categories.filter(parent__isnull=True)
-                .annotate(
+                instance.sub_categories.annotate(
                     is_english=Case(
                         When(name__regex=r"^[a-zA-Z ]*$", then=Value(1)),
                         default=Value(0),
                         output_field=IntegerField(),
                     )
-                )
-                .order_by("-is_english", "name"),
+                ).order_by("-is_english", "name"),
                 many=True,
                 context={"sub_category": True},
             ).data
