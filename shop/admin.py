@@ -69,6 +69,7 @@ class ProductInline(StackedInline):
         "price",
         "image",
         "description",
+        "is_new",
     )
     extra = 1
     show_change_link = True
@@ -116,10 +117,11 @@ class ProductAdmin(ModelAdmin):
         "name",
         "category",
         "price",
+        "is_new",
     )
     fields = list_display + (
         "image",
         "description",
     )
     search_fields = fields
-    list_filter = ("category",)
+    list_filter = ("category", "is_new")

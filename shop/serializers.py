@@ -67,4 +67,5 @@ class ProductsSerializer(serializers.ModelSerializer):
             "price",
             "image",
             "description",
+            "is_new",
         )

@@ -1,4 +1,3 @@
-import os
 from io import BytesIO
 
 from django.core.files.base import ContentFile
@@ -34,13 +33,13 @@ class Category(models.Model):
                 image = Image.open(self.image)
                 webp_io = BytesIO()
                 image.save(webp_io, format="WEBP", quality=80)
-    
+
                 webp_content = ContentFile(webp_io.getvalue())
-                self.image.save(
-                    f"category_{self.pk}.webp", webp_content, save=False
-                )
+                self.image.save(f"category_{self.pk}.webp", webp_content, save=False)
             except Exception as exc:
-                print(f"Error while compressing category image: {exc.__class__.__name__}: {exc}")
+                print(
+                    f"Error while compressing category image: {exc.__class__.__name__}: {exc}"
+                )
         return super().save(*args, **kwargs)
 
     class Meta:
@@ -60,6 +59,7 @@ class Product(models.Model):
         on_delete=models.CASCADE,
         related_name="products",
     )
+    is_new = models.BooleanField(verbose_name="Янгими?", default=False)
 
     def save(self, *args, **kwargs):
         if self.image:
@@ -67,13 +67,13 @@ class Product(models.Model):
                 image = Image.open(self.image)
                 webp_io = BytesIO()
                 image.save(webp_io, format="WEBP", quality=80)
-    
+
                 webp_content = ContentFile(webp_io.getvalue())
-                self.image.save(
-                    f"product_{self.pk}.webp", webp_content, save=False
-                )
+                self.image.save(f"product_{self.pk}.webp", webp_content, save=False)
             except Exception as exc:
-                print(f"Error while compressing product image: {exc.__class__.__name__}: {exc}")
+                print(
+                    f"Error while compressing product image: {exc.__class__.__name__}: {exc}"
+                )
         return super().save(*args, **kwargs)
 
     def __str__(self):
