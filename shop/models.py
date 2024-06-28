@@ -36,6 +36,8 @@ class Category(models.Model):
 
                 webp_content = ContentFile(webp_io.getvalue())
                 self.image.save(f"category_{self.pk}.webp", webp_content, save=False)
+            except SystemExit as sys_exc:
+                print(f"SystemExit Error while compressing category image: {sys_exc}")
             except Exception as exc:
                 print(
                     f"Error while compressing category image: {exc.__class__.__name__}: {exc}"
@@ -70,6 +72,8 @@ class Product(models.Model):
 
                 webp_content = ContentFile(webp_io.getvalue())
                 self.image.save(f"product_{self.pk}.webp", webp_content, save=False)
+            except SystemExit as sys_exc:
+                print(f"SystemExit Error while compressing category image: {sys_exc}")
             except Exception as exc:
                 print(
                     f"Error while compressing product image: {exc.__class__.__name__}: {exc}"
